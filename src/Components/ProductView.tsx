@@ -6,14 +6,16 @@ import { IProducts } from "../store/productsStore";
 
 export const ProductView = observer(() => {
   const {
-    rootStore: { productsStore },
+    rootStore: { productsStore, cartStore },
   } = useStore();
   const { productId } = useParams();
   const product = find(
     productsStore.getProducts,
     (p) => p.id.toString() === productId
   ) as IProducts;
-  const onClickBuyNow = () => {};
+  const onClickBuyNow = () => {
+    cartStore.addProductInCart(product);
+  };
   return (
     <div className="row featurette">
       <div className="col-md-7 order-md-2">
